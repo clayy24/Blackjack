@@ -32,13 +32,15 @@ Deck::Deck()
 
 void Deck::shuffle()
 {
-    
+    std::cout << "Shuffling the deck..." << std::endl;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(cards.begin(), cards.end(), std::default_random_engine(seed));
 }
 
 std::string Deck::toString()
 {
     std::string out = "";
-    for(const Card& card : cards)
+    for( Card& card : cards)
     {
         out += card.toString() + '\n';
     }

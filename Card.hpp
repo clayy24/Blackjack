@@ -5,16 +5,16 @@
 class Card
 {
 public:
-    Card(const std::string rank, const std::string suit);
+    Card(std::string rank, std::string suit);
     std::string getSuit() const;
     std::string getRank() const;
     std::string toString() const;
 private:
-    const std::string suit;
-    const std::string rank;
+    std::string suit;
+    std::string rank;
 };
 
-Card::Card(std::string rank, std::string suit) :  rank(rank), suit(suit){};
+Card::Card(std::string rank, std::string suit) : rank(rank), suit(suit){};
 
 std::string Card::getRank() const
 {
