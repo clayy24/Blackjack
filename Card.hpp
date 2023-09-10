@@ -14,7 +14,7 @@ private:
     std::string rank;
 };
 
-Card::Card(std::string rank, std::string suit) : rank(rank), suit(suit){};
+Card::Card(std::string rank, std::string suit) : rank(rank), suit(suit){}
 
 std::string Card::getRank() const
 {
