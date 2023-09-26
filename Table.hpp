@@ -8,6 +8,8 @@
 
 #define FLAG 4
 
+int prompt();
+
 class Table
 {
 public:
