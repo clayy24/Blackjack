@@ -17,6 +17,7 @@ public:
     int getHandsWon() const;
     int getHandsLost() const;
     std::string getName() const;
+    void setBetAmount(int betAmount);
     void incrementHandsPlayed();
     void incrementHandsWon();
     void incrementHandsLost();
@@ -85,6 +86,11 @@ int Player::getHandsLost() const
 std::string Player::getName() const
 {
     return name;
+}
+
+void Player::setBetAmount(int betAmount)
+{
+    this->betAmount = betAmount;
 }
 
 void Player::incrementHandsPlayed()
