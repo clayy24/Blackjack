@@ -9,6 +9,7 @@ public:
     std::string getSuit() const;
     std::string getRank() const;
     std::string toString() const;
+    int getValue() const;
 private:
     std::string suit;
     std::string rank;
@@ -29,4 +30,16 @@ std::string Card::getSuit() const
 std::string Card::toString() const
 {
     return rank + " of " + suit;
+}
+
+int Card::getValue() const
+{
+    if (rank == "Jack" || rank == "Queen" || rank == "King") {
+            return 10;
+        } else if (rank == "Ace") {
+            return 11; // Aces are initially worth 11, can be adjusted later
+        } else {
+            // For numbered cards (2-10), return their face value
+            return std::stoi(rank);
+        }
 }
