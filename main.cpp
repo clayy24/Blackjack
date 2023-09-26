@@ -1,14 +1,21 @@
 #include <iostream>
 #include "Card.hpp"
+#include "Dealer.hpp"
 #include "Deck.hpp"
+#include "Table.hpp"
 
 int main(int argc, char** argv)
 {
-    Deck deck = Deck();
-    std::cout << deck.toString() << std::endl;
+    Table table;
 
-    deck.shuffle();
-    std::cout << deck.toString() << std::endl;
+    table.addPlayer();
+    table.addPlayer();
+    table.dealCards();
+    table.showHands();
+    table.endHand();
+    table.dealCards();
+    table.showHands();
+    table.showDiscardPile();
 
     return 0;
 }
