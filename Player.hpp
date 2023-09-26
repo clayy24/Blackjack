@@ -7,6 +7,7 @@ class Player
 {
 public:
     Player(int balance, std::string name);
+    Player();
     void addCard(const Card& card);
     Card removeCard();
     std::vector<Card> getHand() const;
@@ -28,6 +29,12 @@ private:
 };
 
 Player::Player(int balance, std::string name) : balance(balance), name(name) {}
+
+Player::Player()
+{
+    name = "";
+    balance = 500;
+}
 
 void Player::addCard(const Card& card)
 {
