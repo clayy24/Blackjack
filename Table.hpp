@@ -6,70 +6,45 @@
 #include <vector>
 #include <string>
 
-#define FLAG 5
+#define FLAG 4
 
 class Table
 {
 public:
-    void addPlayer();
     void dealCards();
     void showHands();
     void endHand();
     void showDiscardPile();
     void runGame();
-    void placeBet();
+    void modifyBet();
+    void cashOut();
+    int endGame();
 private:
     Deck deck = Deck();
-    std::vector<Player> players;
+    Player player = Player();
     Dealer dealer;
     std::vector<Card> discardPile;
 };
 
-void Table::addPlayer()
-{
-    std::string name;
-    int bal;
-
-    std::cout << "Enter player name: ";
-    std::cin >> name;
-    std::cout << "Enter player balance: ";
-    std::cin >> bal;
-    std::cout << "\n";
-    Player player = Player(bal, name);
-    players.push_back(player);
-}
-
 void Table::dealCards()
 {
-    for(int i = 0; i < 2; i++)
-    {
-        for(Player& player : players)
-        {
-            player.addCard(deck.dealCard());
-        }
-        dealer.addCard(deck.dealCard());
-    }
+    player.addCard(deck.dealCard());
+    dealer.addCard(deck.dealCard());
+    player.addCard(deck.dealCard());
+    dealer.addCard(deck.dealCard());
 }
 
 void Table::showHands()
 {
     dealer.showHand();
-    for(const Player& player : players)
-    {
-        player.showHand();
-    }
+    player.showHand();
+
 }
 
 void Table::endHand()
 {
-    for(int i = 0; i < 2; i++)
-    {
-        for(Player& player : players)
-        {
-            discardPile.push_back(player.removeCard());
-        }
-        discardPile.push_back(dealer.removeCard());
-    }
+    discardPile.push_back(player.removeCard());
+    discardPile.push_back(dealer.removeCard());
 }
 
 void Table::showDiscardPile()
@@ -88,35 +63,70 @@ void Table::runGame()
 
     while(flag != FLAG)
     {
+        std::cout << "Curent balance: $" << player.getBalance() << std::endl;
+        std::cout << "Current bet amount: $" << player.getBetAmount() << std::endl;
+
         switch(prompt())
         {
             case 1:
-                addPlayer();
+                modifyBet();
                 break;
             case 2:
-                placeBet();
+                dealCards();
                 break;
-                
+            case 3:
+                cashOut();
+                flag = endGame();
+                break;
+            case 4:
+                flag = endGame();
+                break;
+            default:
+                std::cout << "Invalid choice" << std::endl;
         }
 
 
     }
 }
 
-void Table::placeBet()
+
+void Table::modifyBet()
 {
-    
+    int newBetAmount;
+
+    std::cout << "Enter the amount you would like to bet: ";
+    std::cin >> newBetAmount;
+
+    while(newBetAmount > player.getBalance())
+    {
+        std::cout << "Error: cannot bet more than current balance.\n";
+        std::cout << "Enter a new bet amount: ";
+
+        std::cin >> newBetAmount;
+    }
+
+    player.setBetAmount(newBetAmount);
+}
+
+void Table::cashOut()
+{
+    std::cout << "You are cashing out with $" << player.getBalance() << "!";
+}
+
+int Table::endGame()
+{
+    std::cout << "Game over." << std::endl;
+    return FLAG;
 }
 
 int prompt()
 {
     int input;
 
-    std::cout << "1: Add player\n";
-    std::cout << "2. Place bet\n";
-    std::cout << "3: Deal cards\n";
-    std::cout << "4: Cash out\n";
-    std::cout << "5: Exit" << std::endl;
+    std::cout << "1. Modify bet\n";
+    std::cout << "2: Deal cards\n";
+    std::cout << "3: Cash out\n";
+    std::cout << "4: Exit" << std::endl;
 
     std::cin >> input;
 
