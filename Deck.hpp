@@ -12,9 +12,11 @@ class Deck
 public:
     Deck();
     void shuffle();
+    Card dealCard();
     std::string toString();
 private:
     std::vector<Card> cards;
+    std::vector<Card> discardPile;
     const std::vector<std::string> suits = {"Hearts", "Clubs", "Diamonds", "Spades"};
     const std::vector<std::string> ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
 };
@@ -37,10 +39,17 @@ void Deck::shuffle()
     std::shuffle(cards.begin(), cards.end(), std::default_random_engine(seed));
 }
 
+Card Deck::dealCard()
+{
+    discardPile.push_back(cards.back());
+    cards.pop_back();
+    return discardPile.back();
+}
+
 std::string Deck::toString()
 {
     std::string out = "";
-    for( Card& card : cards)
+    for(Card& card : cards)
     {
         out += card.toString() + '\n';
     }
