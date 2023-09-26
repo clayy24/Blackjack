@@ -11,6 +11,8 @@ public:
     void addCard(const Card& card);
     Card removeCard();
     std::vector<Card> getHand() const;
+    int getBetAmount() const;
+    int getBalance() const;
     int getHandsPlayed() const;
     int getHandsWon() const;
     int getHandsLost() const;
@@ -22,6 +24,7 @@ public:
 private:
     std::vector<Card> hand;
     std::string name;
+    int betAmount;
     int balance;
     int handsPlayed = 0;
     int handsWon = 0;
@@ -33,6 +36,7 @@ Player::Player(int balance, std::string name) : balance(balance), name(name) {}
 Player::Player()
 {
     name = "";
+    betAmount = 50;
     balance = 500;
 }
 
@@ -51,6 +55,16 @@ Card Player::removeCard()
 std::vector<Card> Player::getHand() const
 {
     return hand;
+}
+
+int Player::getBetAmount() const
+{
+    return betAmount;
+}
+
+int Player::getBalance() const
+{
+    return balance;
 }
 
 int Player::getHandsPlayed() const
