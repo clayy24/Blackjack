@@ -1,3 +1,4 @@
+#pragma once
 #include "Card.hpp"
 #include <iostream>
 #include <vector>
@@ -7,6 +8,7 @@ class Player
 public:
     Player(int balance, std::string name);
     void addCard(const Card& card);
+    Card removeCard();
     std::vector<Card> getHand() const;
     int getHandsPlayed() const;
     int getHandsWon() const;
@@ -30,6 +32,13 @@ Player::Player(int balance, std::string name) : balance(balance), name(name) {}
 void Player::addCard(const Card& card)
 {
     hand.push_back(card);
+}
+
+Card Player::removeCard()
+{
+    Card temp = hand.back();
+    hand.pop_back();
+    return temp;
 }
 
 std::vector<Card> Player::getHand() const
@@ -78,6 +87,7 @@ void Player::showHand() const
     
     for(const Card& card : hand)
     {
-        std::cout << " " << card.toString() << std::endl;
+        std::cout << card.toString() << std::endl;
     }
+    std::cout << std::endl;
 }
